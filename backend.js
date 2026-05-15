@@ -314,6 +314,8 @@ function reminderEmailHtml({ title, slug, unsubLink, slot }) {
 
 const app = express();
 
+app.set('trust proxy', 1);
+
 app.use(helmet());
 app.use(cors({
   origin: (origin, callback) => {
@@ -345,12 +347,14 @@ const subscribeLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max:      10,
   message:  { error: 'Too many requests, please try again later' },
+  keyGenerator: (req) => req.ip, // Use IP from X-Forwarded-For
 });
 
 const verifyLimiter = rateLimit({
   windowMs: 60 * 1000,
   max:      10,
   message:  { error: 'Too many requests' },
+  keyGenerator: (req) => req.ip,
 });
 
 // ================= ROUTES =================
