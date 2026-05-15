@@ -60,7 +60,13 @@ const supabase = createClient(
 const redis = new Redis(process.env.REDIS_URL, {
   maxRetriesPerRequest: null,
   enableReadyCheck:     false,
-  lazyConnect:          true,
+  lazyConnect:          false,
+  retryStrategy:        (times) => Math.min(times * 50, 2000), // Exponential backoff
+  reconnectOnError:     (err) => {
+    const targetError = 'READONLY';
+    if (err.message.includes(targetError)) return true;
+    return false;
+  },
 });
 
 redis.on('error', (err) => log.error('Redis connection error:', err.message));
