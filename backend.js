@@ -342,19 +342,17 @@ app.use((req, _res, next) => {
   next();
 });
 
-// Rate limiters
+// Rate limiters - remove custom keyGenerator
 const subscribeLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max:      10,
   message:  { error: 'Too many requests, please try again later' },
-  keyGenerator: (req) => req.ip, // Use IP from X-Forwarded-For
 });
 
 const verifyLimiter = rateLimit({
   windowMs: 60 * 1000,
   max:      10,
   message:  { error: 'Too many requests' },
-  keyGenerator: (req) => req.ip,
 });
 
 // ================= ROUTES =================
