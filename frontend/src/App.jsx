@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, useSearchParams, useNavigate, Routes, Route } from 'react-router-dom';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+const API_URL = import.meta.env.VITE_API_URL || 'https://eetcode-daily-problem-tracker-js-pranesh-20059066-bds8vqa7.leapcell.dev';
 
 function SubscribePage() {
   const [formData, setFormData] = useState({
