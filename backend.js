@@ -44,7 +44,7 @@ const log = {
 // ================= CONFIG =================
 
 const LEETCODE_API  = 'https://leetcode-api-vercel.vercel.app';
-const FRONTEND_URL  = process.env.FRONTEND_URL || 'http://localhost:5173';
+const FRONTEND_URL  = 'https://leetcode-daily-problem-tracker-js.vercel.app/';
 const PORT          = parseInt(process.env.PORT || '3001', 10);
 const NODE_ENV      = process.env.NODE_ENV || 'development';
 const IS_PROD       = NODE_ENV === 'production';
