@@ -316,7 +316,20 @@ const app = express();
 
 app.use(helmet());
 app.use(cors({
-  origin:      IS_PROD ? FRONTEND_URL : '*',
+  origin: (origin, callback) => {
+    const allowedOrigins = [
+      'https://leetcode-daily-problem-tracker-js.vercel.app',
+      'https://leetcode-daily-problem-tracker-js.vercel.app/',
+      'http://localhost:5173',
+      'http://localhost:3000',
+    ];
+    
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
 }));
 app.use(express.json({ limit: '16kb' }));
